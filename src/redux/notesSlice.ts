@@ -2,7 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 // import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface NotesState {
-  notes: number[];
+  notes: Note[];
+}
+
+export interface Note {
+  createdAt: number;
+  body: string;
+  done: boolean;
 }
 
 const initialState: NotesState = {
