@@ -1,11 +1,13 @@
 import { daysOfWeek } from "@/lib/dates";
+import Cell from "./Cell";
+import EmptyCell from "./EmptyCell";
 
 function Calendar() {
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth() + 1; // Months are zero-based in JavaScript
 
-  const getDay = (date: number) => {
+  const getDay = (date: Date) => {
     let day = date.getDay();
     if (day === 0) day = 7; // Make Sunday (0) the last day
     return day - 1;
@@ -24,32 +26,45 @@ function Calendar() {
 
       for (let weekday = 0; weekday < 7; weekday++) {
         if ((week === 0 && weekday < firstDayOfWeek) || day > daysInMonth) {
-          weekDays.push(<td key={`${week}-${weekday}`}></td>);
+          weekDays.push(<EmptyCell key={`${week}-${weekday}`} />);
         } else {
-          weekDays.push(<td key={`${week}-${weekday}`}>{day}</td>);
+          weekDays.push(
+            <Cell
+              key={`${week}-${weekday}`}
+              year={currentYear}
+              month={currentMonth}
+              day={day}
+              blocked={currentDate.getDate() > day}
+            />
+          );
           day++;
         }
       }
 
-      calendar.push(<tr key={week}>{weekDays}</tr>);
+      calendar.push(
+        <div className="grid grid-cols-7 gap-2" key={week}>
+          {weekDays}
+        </div>
+      );
     }
 
     return calendar;
   };
 
   return (
-    <table className="w-full">
-      <thead>
-        <tr>
-          {daysOfWeek.map((item) => (
-            <th key={item} className="font-normal text-gray-500">
-              {item}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>{createCalendar()}</tbody>
-    </table>
+    <div className="flex flex-col justify-between gap-8 w-full h-full">
+      <div className="grid grid-cols-7">
+        {daysOfWeek.map((item) => (
+          <div
+            key={item}
+            className="flex justify-center font-normal text-gray-500 p-0"
+          >
+            {item}
+          </div>
+        ))}
+      </div>
+      {createCalendar()}
+    </div>
   );
 }
 
