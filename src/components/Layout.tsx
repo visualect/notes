@@ -4,7 +4,7 @@ import Container from "./Container";
 
 export default function Layout() {
   return (
-    <main className="bg-black text-gray-50 h-screen">
+    <main className="bg-neutral-950 text-gray-50 h-screen">
       <Container>
         <Header />
         <Outlet />
