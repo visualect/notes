@@ -23,7 +23,7 @@ export default function Modal({
   if (!isOpen) return null;
 
   return (
-    <div className="flex justify-center items-center fixed top-0 bottom-0 right-0 left-0 backdrop-blur-sm z-10">
+    <div className="flex justify-center items-center fixed top-0 bottom-0 right-0 left-0 bg-black/75 z-10">
       <motion.div
         className="w-full md:w-[500px] max-w-[500px] flex flex-col justify-center items-center gap-14 px-4 py-14 sm:p-14 bg-neutral-900 rounded-2xl border border-neutral-800
       "
@@ -33,8 +33,8 @@ export default function Modal({
         <h2 className="text-lg font-medium">{title}</h2>
         <div className="w-full">{body}</div>
         <div className="flex flex-row gap-4 w-full">
-          <Button label={secondaryActionLabel} action={onClose} />
-          <Button label={actionLabel} action={onSubmit} />
+          <Button secondary label={secondaryActionLabel} action={onClose} />
+          <Button secondary={false} label={actionLabel} action={onSubmit} />
         </div>
       </motion.div>
     </div>

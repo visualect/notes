@@ -9,9 +9,9 @@ export interface NotesState {
 
 export interface Note {
   id: string;
-  createdAt: Date;
+  createdAt: number;
   body: string;
-  done: boolean;
+  completed: boolean;
   priority: "critical" | "high" | "neutral" | "low";
 }
 
@@ -27,20 +27,31 @@ export const notesSlice = createSlice({
       reducer(state, action: PayloadAction<Note>) {
         state.notes.push(action.payload);
       },
-      prepare(body, priority) {
+      prepare(body, priority, date) {
         return {
           payload: {
             id: nanoid(),
-            createdAt: new Date(),
+            createdAt: new Date(date.year, date.month, date.day).getTime(),
             body,
-            done: false,
+            completed: false,
             priority,
           },
         };
       },
     },
     deleteNote(state, action: PayloadAction<string>) {
-      state.notes.filter((note) => note.id !== action.payload);
+      state.notes = state.notes.filter((note) => note.id !== action.payload);
+    },
+    toggleCompleted(state, action: PayloadAction<string>) {
+      state.notes = state.notes.map((item) => {
+        if (item.id === action.payload) {
+          return {
+            ...item,
+            completed: !item.completed,
+          };
+        }
+        return item;
+      });
     },
     editNote(state, action: PayloadAction<Note>) {
       state.notes.map((note) => {
@@ -64,7 +75,7 @@ export const getNotesByDate = (
   state.notes.notes.filter((item) => {
     const date = new Date(item.createdAt);
     const year = getYear(date);
-    const month = getMonth(date) + 1;
+    const month = getMonth(date);
     const day = getDate(date);
     if (year === currYear && month === currMonth && currDay === day) {
       return true;
@@ -73,6 +84,7 @@ export const getNotesByDate = (
     }
   });
 
-export const { addNote, deleteNote, editNote } = notesSlice.actions;
+export const { addNote, deleteNote, toggleCompleted, editNote } =
+  notesSlice.actions;
 
 export default notesSlice.reducer;

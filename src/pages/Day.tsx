@@ -7,6 +7,7 @@ import { useState } from "react";
 import CreateNoteModal from "@/components/Modals/CreateNoteModal";
 import { useAppSelector } from "@/redux/hooks";
 import { getNotesByDate } from "@/redux/notesSlice";
+import Note from "@/components/Notes/Note";
 
 export default function Day() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,11 +17,10 @@ export default function Day() {
   const notes = useAppSelector((state) =>
     getNotesByDate(state, { year, month, day })
   );
-  console.log(notes);
 
   let currentDate;
   if (year && month && day) {
-    currentDate = format(new Date(year, month, day), "d MMMM yyyy");
+    currentDate = format(new Date(year, month - 1, day), "d MMMM yyyy");
   }
 
   return (
@@ -33,15 +33,23 @@ export default function Day() {
       <CreateNoteModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        date={{ year, month, day }}
       />
       <h1>{currentDate}</h1>
-      <div className="flex flex-col items-center">
-        <div>
-          <Button label="Create note" action={() => setIsModalOpen(true)} />
+      <div className="flex flex-col items-center gap-8">
+        <div className="w-full flex flex-row items-center justify-between">
+          <div>test</div>
+          <div>
+            <Button
+              secondary={false}
+              label="Add"
+              action={() => setIsModalOpen(true)}
+            />
+          </div>
         </div>
-        <ul>
+        <ul className="w-full flex flex-col gap-4">
           {notes.map((item) => (
-            <li key={item.id}>{item.body}</li>
+            <Note key={item.id} note={item} />
           ))}
         </ul>
       </div>

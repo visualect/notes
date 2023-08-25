@@ -8,11 +8,13 @@ import { addNote } from "@/redux/notesSlice";
 interface ICreateNoteModalProps {
   isOpen: boolean;
   onClose: () => void;
+  date: { year: number; month: number; day: number };
 }
 
 export default function CreateNoteModal({
   isOpen,
   onClose,
+  date,
 }: ICreateNoteModalProps) {
   const [bodyValue, setBodyValue] = useState("");
   const [priority, setPriority] = useState<
@@ -24,8 +26,8 @@ export default function CreateNoteModal({
   const priorityBase = "px-4 py-2 border rounded-2xl cursor-pointer relative";
 
   const onSubmit = () => {
-    if (!bodyValue && !priority) return;
-    dispatch(addNote(bodyValue, priority));
+    if (!bodyValue || !priority) return;
+    dispatch(addNote(bodyValue, priority, date));
     onClose();
     setBodyValue("");
     setPriority(null);
@@ -76,7 +78,7 @@ export default function CreateNoteModal({
       title="New note"
       body={body}
       onSubmit={onSubmit}
-      secondaryActionLabel="Close"
+      secondaryActionLabel="Cancel"
       actionLabel="Create"
     />
   );
