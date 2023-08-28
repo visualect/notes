@@ -4,5 +4,7 @@ export default function getDateOfDay(location: string) {
   const month = Number(params.get("m"));
   const day = Number(params.get("d"));
 
-  return { year, month, day };
+  const date = new Date(year, month - 1, day).getTime();
+
+  return date;
 }

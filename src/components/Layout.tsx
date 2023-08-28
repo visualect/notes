@@ -5,7 +5,7 @@ import { Toaster } from "sonner";
 
 export default function Layout() {
   return (
-    <main className="bg-neutral-950 text-neutral-100 h-screen">
+    <main className="bg-[#161616] text-[#ededed] min-h-screen font-jetbrains">
       <Container>
         <Toaster position="top-right" />
         <Header />

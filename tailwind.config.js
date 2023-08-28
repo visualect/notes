@@ -56,11 +56,34 @@ module.exports = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      bg: {
+        btn: 'bg-gradient-to-r from-sky-200 to-[#0090FF]'
+      },
       dropShadow: {
         glow: [
           "0 0px 5px rgba(255,255, 255)",
           "0 0px 10px rgba(255, 255,255, .1)"
+        ],
+        glowIndigo: [
+          "0 0px 5px rgba(99, 102, 241)",
+          "0 0px 10px rgba(99, 102,241, .1)"
+        ],
+        glowGray: [
+          "0 0px 5px rgba(107, 114, 128)",
+          "0 0px 10px rgba(107, 114, 128, .1)"
+        ],
+        glowAmber: [
+          "0 0px 5px rgba(245, 158, 11)",
+          "0 0px 10px rgba(245, 158, 11, .1)"
+        ],
+        glowRose: [
+          "0 0px 5px rgba(244, 63, 94)",
+          "0 0px 10px rgba(244, 63, 94, .1)"
         ]
+      },
+      fontFamily: {
+        editorial: ['Editorial', 'sans-serif'],
+        jetbrains: ['JetBrains Mono', 'sans-serif'],
       },
       keyframes: {
         "accordion-down": {

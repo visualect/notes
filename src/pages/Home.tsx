@@ -8,8 +8,8 @@ export default function Home() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 1, ease: "easeOut" }}
-      className="flex flex-col gap-8 py-20"
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="flex flex-col gap-24 py-20"
     >
       <section className="flex flex-row justify-between items-center">
         <DateDisplay />

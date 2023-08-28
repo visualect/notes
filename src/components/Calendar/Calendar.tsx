@@ -1,6 +1,7 @@
 import { daysOfWeek } from "@/lib/dates";
 import Cell from "./Cell";
 import EmptyCell from "./EmptyCell";
+import { Variants, motion } from "framer-motion";
 
 function Calendar() {
   const currentDate = new Date();
@@ -51,20 +52,31 @@ function Calendar() {
     return calendar;
   };
 
+  const container: Variants = {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.01,
+      },
+    },
+  };
+
   return (
-    <div className="flex flex-col justify-between gap-8 w-full h-full">
+    <motion.div
+      initial="hidden"
+      animate="show"
+      variants={container}
+      className="flex flex-col justify-between gap-8 w-full h-full"
+    >
       <div className="grid grid-cols-7">
         {daysOfWeek.map((item) => (
-          <div
-            key={item}
-            className="flex justify-center font-normal text-gray-500 p-0"
-          >
+          <div key={item} className="flex justify-center font-normal text-2xl ">
             {item}
           </div>
         ))}
       </div>
       {createCalendar()}
-    </div>
+    </motion.div>
   );
 }
 

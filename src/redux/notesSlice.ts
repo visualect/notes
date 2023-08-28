@@ -1,7 +1,6 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { createSlice, nanoid, createSelector } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
-import { getDate, getMonth, getYear } from "date-fns";
 
 export interface NotesState {
   notes: Note[];
@@ -31,7 +30,7 @@ export const notesSlice = createSlice({
         return {
           payload: {
             id: nanoid(),
-            createdAt: new Date(date.year, date.month, date.day).getTime(),
+            createdAt: date,
             body,
             completed: false,
             priority,
@@ -64,25 +63,30 @@ export const notesSlice = createSlice({
   },
 });
 
-export const getNotesByDate = (
-  state: RootState,
-  {
-    year: currYear,
-    month: currMonth,
-    day: currDay,
-  }: { year: number; month: number; day: number }
-) =>
-  state.notes.notes.filter((item) => {
-    const date = new Date(item.createdAt);
-    const year = getYear(date);
-    const month = getMonth(date);
-    const day = getDate(date);
-    if (year === currYear && month === currMonth && currDay === day) {
-      return true;
-    } else {
-      return false;
-    }
-  });
+export const selectNotes = (state: RootState) => state.notes.notes;
+
+export const selectNoteByDate = createSelector(
+  [selectNotes, (_, t) => t],
+  (notes, t) => {
+    return notes.filter((item) => {
+      const dateOfDay = new Date(item.createdAt);
+      const yOD = dateOfDay.getFullYear();
+      const mOD = dateOfDay.getMonth();
+      const dOD = dateOfDay.getDate();
+
+      const dateWhenNoteCreated = new Date(t);
+      const yWC = dateWhenNoteCreated.getFullYear();
+      const mWC = dateWhenNoteCreated.getMonth();
+      const dWC = dateWhenNoteCreated.getDate();
+
+      if (yOD === yWC && mOD === mWC && dOD === dWC) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  }
+);
 
 export const { addNote, deleteNote, toggleCompleted, editNote } =
   notesSlice.actions;

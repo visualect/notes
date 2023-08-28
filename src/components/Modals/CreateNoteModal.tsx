@@ -3,13 +3,14 @@ import Input from "../Inputs/Input";
 import Modal from "./Modal";
 import { useState } from "react";
 import { addNote } from "@/redux/notesSlice";
-// import { GoDotFill } from "react-icons/go";
 
 interface ICreateNoteModalProps {
   isOpen: boolean;
   onClose: () => void;
-  date: { year: number; month: number; day: number };
+  date: number;
 }
+
+export type priorityValues = "low" | "neutral" | "high" | "critical" | null;
 
 export default function CreateNoteModal({
   isOpen,
@@ -17,13 +18,8 @@ export default function CreateNoteModal({
   date,
 }: ICreateNoteModalProps) {
   const [bodyValue, setBodyValue] = useState("");
-  const [priority, setPriority] = useState<
-    "low" | "neutral" | "high" | "critical" | null
-  >(null);
-
+  const [priority, setPriority] = useState<priorityValues>(null);
   const dispatch = useAppDispatch();
-
-  const priorityBase = "px-4 py-2 border rounded-2xl cursor-pointer relative";
 
   const onSubmit = () => {
     if (!bodyValue || !priority) return;
@@ -33,35 +29,40 @@ export default function CreateNoteModal({
     setPriority(null);
   };
 
+  const prioritiesStyle =
+    "p-2 cursor-pointer font-bold font-jetbrains hover:-translate-y-1 transition duration-300 ease-out hover:text-[#0090FF]";
+
   const body = (
     <div className="w-full flex flex-col gap-8">
       <Input value={bodyValue} onChange={setBodyValue} placeholder="Note" />
       <ul className="flex flex-row justify-between">
         <li
-          className={`${priorityBase}  ${priority === "low" && "bg-slate-500"}`}
+          className={`${prioritiesStyle} ${
+            priority === "low" && "text-[#0090FF]"
+          }`}
           onClick={() => setPriority("low")}
         >
           Low
         </li>
         <li
-          className={`${priorityBase} ${
-            priority === "neutral" && "bg-slate-500"
+          className={`${prioritiesStyle} ${
+            priority === "neutral" && "text-[#0090FF]"
           }`}
           onClick={() => setPriority("neutral")}
         >
           Neutral
         </li>
         <li
-          className={`${priorityBase}  ${
-            priority === "high" && "bg-slate-500"
+          className={`${prioritiesStyle} ${
+            priority === "high" && "text-[#0090FF]"
           }`}
           onClick={() => setPriority("high")}
         >
           High
         </li>
         <li
-          className={`${priorityBase}  ${
-            priority === "critical" && "bg-slate-500"
+          className={`${prioritiesStyle} ${
+            priority === "critical" && "text-[#0090FF]"
           }`}
           onClick={() => setPriority("critical")}
         >
@@ -75,7 +76,7 @@ export default function CreateNoteModal({
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title="New note"
+      title="Add note"
       body={body}
       onSubmit={onSubmit}
       secondaryActionLabel="Cancel"
