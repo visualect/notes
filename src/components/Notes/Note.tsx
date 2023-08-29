@@ -52,9 +52,9 @@ export default function NoteItem({ note }: INoteProps) {
 
   return (
     <motion.li
-      className={`relative w-full flex flex-row justify-between gap-1 items-center p-4 bg-neutral-900 border border-zinc-800 rounded-2xl
+      className={`relative w-full flex flex-row justify-between gap-1 items-center p-4 border border-zinc-800 rounded-2xl
       ${
-        note.completed && "bg-neutral-800 text-neutral-600"
+        note.completed ? "bg-neutral-800 text-neutral-600" : "bg-neutral-900"
       } transition duration-300 ease-out`}
       key={note.id}
       variants={item}

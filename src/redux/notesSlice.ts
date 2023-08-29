@@ -60,6 +60,9 @@ export const notesSlice = createSlice({
         return note;
       });
     },
+    markAllCompleted(state) {
+      state.notes;
+    },
   },
 });
 
@@ -85,6 +88,32 @@ export const selectNoteByDate = createSelector(
         return false;
       }
     });
+  }
+);
+
+export const selectFilteredNotes = createSelector(
+  [
+    (state, t) => selectNoteByDate(state, t),
+    (state: RootState) => state.filters,
+  ],
+  (notes: Note[], filters) => {
+    let filteredByPriority;
+    if (filters.priority === "all") {
+      filteredByPriority = notes;
+    } else {
+      filteredByPriority = notes.filter(
+        (note) => note.priority === filters.priority
+      );
+    }
+
+    switch (filters.status) {
+      case "active":
+        return filteredByPriority.filter((note) => !note.completed);
+      case "completed":
+        return filteredByPriority.filter((note) => note.completed);
+      default:
+        return filteredByPriority;
+    }
   }
 );
 

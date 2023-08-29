@@ -51,14 +51,6 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-      },
-      bg: {
-        btn: 'bg-gradient-to-r from-sky-200 to-[#0090FF]'
-      },
       dropShadow: {
         glow: [
           "0 0px 5px rgba(255,255, 255)",
@@ -81,9 +73,10 @@ module.exports = {
           "0 0px 10px rgba(244, 63, 94, .1)"
         ]
       },
-      fontFamily: {
-        editorial: ['Editorial', 'sans-serif'],
-        jetbrains: ['JetBrains Mono', 'sans-serif'],
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
         "accordion-down": {

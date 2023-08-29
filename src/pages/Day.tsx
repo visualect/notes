@@ -5,16 +5,28 @@ import getDateOfDay from "@/actions/getDateOfDay";
 import Button from "@/components/Buttons/Button";
 import { useState } from "react";
 import CreateNoteModal from "@/components/Modals/CreateNoteModal";
-import { useAppSelector } from "@/redux/hooks";
-import { selectNoteByDate } from "@/redux/notesSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { selectFilteredNotes } from "@/redux/notesSlice";
 import Note from "@/components/Notes/Note";
+import Filters from "@/components/Filters.tsx/Filters";
+import {
+  priorityChanged,
+  selectPriorityFilter,
+  selectStatusFilter,
+  statusChanged,
+} from "@/redux/filtersSlice";
 
 export default function Day() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const location = useLocation();
+  const dispatch = useAppDispatch();
+  const filter = useAppSelector(selectPriorityFilter);
+  const status = useAppSelector(selectStatusFilter);
   const timestamp = getDateOfDay(location.search);
 
-  const notes = useAppSelector((state) => selectNoteByDate(state, timestamp));
+  const notes = useAppSelector((state) =>
+    selectFilteredNotes(state, timestamp)
+  );
 
   let currentDate;
   if (timestamp) {
@@ -26,7 +38,6 @@ export default function Day() {
     show: {
       transition: {
         staggerChildren: 0.1,
-        type: "spring",
       },
     },
   };
@@ -43,12 +54,18 @@ export default function Day() {
         onClose={() => setIsModalOpen(false)}
         date={timestamp}
       />
-      <h1>{currentDate}</h1>
+      <h1 className="text-sm">This is {currentDate}</h1>
       <div className="flex flex-col items-center gap-8">
-        <div className="w-full flex flex-row items-center justify-between min-h-[44px]">
-          <div>Filters</div>
+        <div className="w-full flex flex-col gap-8">
+          <Filters
+            filter={filter}
+            status={status}
+            onChangeFilter={(value) => dispatch(priorityChanged(value))}
+            onChangeStatus={(value) => dispatch(statusChanged(value))}
+          />
           <div>
             <Button
+              small={false}
               secondary={false}
               label="Add"
               action={() => setIsModalOpen(true)}

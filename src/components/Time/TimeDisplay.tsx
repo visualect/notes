@@ -7,5 +7,5 @@ export default function TimeDisplay() {
     setInterval(() => setCurrentTime(new Date()), 1000);
   }, []);
 
-  return <div className="text-xl">{format(currentTime, "HH:mm:ss")}</div>;
+  return <div className="text-sm">{format(currentTime, "HH:mm:ss")}</div>;
 }
