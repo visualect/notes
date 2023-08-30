@@ -5,23 +5,14 @@ import getDateOfDay from "@/actions/getDateOfDay";
 import Button from "@/components/Buttons/Button";
 import { useState, useEffect } from "react";
 import CreateNoteModal from "@/components/Modals/CreateNoteModal";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useAppSelector } from "@/redux/hooks";
 import { selectFilteredNotes, selectNotes } from "@/redux/notesSlice";
 import Note from "@/components/Notes/Note";
-import Filters from "@/components/Filters.tsx/Filters";
-import {
-  priorityChanged,
-  selectPriorityFilter,
-  selectStatusFilter,
-  statusChanged,
-} from "@/redux/filtersSlice";
+import Filters from "@/components/Filters/Filters";
 
 export default function Day() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const location = useLocation();
-  const dispatch = useAppDispatch();
-  const filter = useAppSelector(selectPriorityFilter);
-  const status = useAppSelector(selectStatusFilter);
   const timestamp = getDateOfDay(location.search);
   const notes = useAppSelector((state) =>
     selectFilteredNotes(state, timestamp)
@@ -74,13 +65,7 @@ export default function Day() {
       </div>
       <div className="flex flex-col items-center gap-8">
         <div className="w-full flex flex-col gap-4">
-          <Filters
-            filter={filter}
-            status={status}
-            onChangeFilter={(value) => dispatch(priorityChanged(value))}
-            onChangeStatus={(value) => dispatch(statusChanged(value))}
-            t={timestamp}
-          />
+          <Filters t={timestamp} />
           <div>
             <Button
               small={false}
