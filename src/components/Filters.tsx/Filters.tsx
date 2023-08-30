@@ -1,11 +1,14 @@
+import { useAppDispatch } from "@/redux/hooks";
 import Button from "../Buttons/Button";
 import CustomSelect from "../Select/Select";
+import { clearCompleted, markAllCompleted } from "@/redux/notesSlice";
 
 interface IFilters {
   filter: string;
   status: string;
   onChangeFilter: (value: string) => void;
   onChangeStatus: (value: string) => void;
+  t: number;
 }
 
 export default function Filters({
@@ -13,7 +16,9 @@ export default function Filters({
   onChangeFilter,
   status,
   onChangeStatus,
+  t,
 }: IFilters) {
+  const dispatch = useAppDispatch();
   const priorityOptions = ["all", "low", "neutral", "high", "critical"];
   const statusOptions = ["all", "active", "completed"];
   return (
@@ -37,8 +42,18 @@ export default function Filters({
         />
       </div>
       <div className="flex flex-col gap-2 w-[200px]">
-        <Button label="Mark all completed" secondary={false} small />
-        <Button label="Clear completed" secondary={false} small />
+        <Button
+          label="Mark all completed"
+          secondary={false}
+          small
+          action={() => dispatch(markAllCompleted(t))}
+        />
+        <Button
+          label="Clear completed"
+          secondary={false}
+          small
+          action={() => dispatch(clearCompleted(t))}
+        />
       </div>
     </div>
   );

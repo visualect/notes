@@ -1,5 +1,3 @@
-import { motion } from "framer-motion";
-
 interface IButtonProps {
   label: string;
   action?: () => void;
@@ -19,15 +17,13 @@ export default function Button({
     "bg-transparent hover:text-black hover:border-none hover:bg-gradient-to-r from-red-300 to-red-500";
 
   return (
-    <motion.button
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+    <button
       className={`w-full px-4 py-2 font-bold rounded-[6px] border font-jetbrains transition duration-300 ease-out ${
         secondary ? secondaryStyles : mainStyles
       } ${small ? "text-xs" : "text-base"}`}
       onClick={action ? action : undefined}
     >
       {label}
-    </motion.button>
+    </button>
   );
 }

@@ -34,7 +34,7 @@ export default function Cell({ day, year, month, blocked }: ICellProps) {
       <motion.div
         variants={item}
         className={`flex justify-center items-center p-0 text-2xl rounded-full ${
-          !blocked && "hover:text-[#0090FF]"
+          !blocked && "hover:text-emerald-500"
         } cursor-pointer transition duration-150 font-jetbrains
       ${blocked && "text-[#a0a0a0]"}
       `}

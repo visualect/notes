@@ -1,10 +1,14 @@
 import { createSlice, nanoid, createSelector } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
+import getNotesForSpecificDay from "@/lib/getNotesForSpecificDay";
+import areDatesEqual from "@/lib/areDatesEqual";
 
 export interface NotesState {
   notes: Note[];
 }
+
+const storage = JSON.parse(localStorage.getItem("notes") as string) as Note[];
 
 export interface Note {
   id: string;
@@ -15,7 +19,7 @@ export interface Note {
 }
 
 const initialState: NotesState = {
-  notes: [],
+  notes: storage ?? [],
 };
 
 export const notesSlice = createSlice({
@@ -60,8 +64,26 @@ export const notesSlice = createSlice({
         return note;
       });
     },
-    markAllCompleted(state) {
-      state.notes;
+    markAllCompleted(state, action: PayloadAction<number>) {
+      state.notes = state.notes.map((note) => {
+        const areEqual = areDatesEqual(note.createdAt, action.payload);
+        if (areEqual) {
+          return {
+            ...note,
+            completed: true,
+          };
+        }
+        return note;
+      });
+    },
+    clearCompleted(state, action: PayloadAction<number>) {
+      state.notes = state.notes.filter((note) => {
+        const areEqual = areDatesEqual(note.createdAt, action.payload);
+        if (areEqual && note.completed) {
+          return false;
+        }
+        return true;
+      });
     },
   },
 });
@@ -69,25 +91,9 @@ export const notesSlice = createSlice({
 export const selectNotes = (state: RootState) => state.notes.notes;
 
 export const selectNoteByDate = createSelector(
-  [selectNotes, (_, t) => t],
-  (notes, t) => {
-    return notes.filter((item) => {
-      const dateOfDay = new Date(item.createdAt);
-      const yOD = dateOfDay.getFullYear();
-      const mOD = dateOfDay.getMonth();
-      const dOD = dateOfDay.getDate();
-
-      const dateWhenNoteCreated = new Date(t);
-      const yWC = dateWhenNoteCreated.getFullYear();
-      const mWC = dateWhenNoteCreated.getMonth();
-      const dWC = dateWhenNoteCreated.getDate();
-
-      if (yOD === yWC && mOD === mWC && dOD === dWC) {
-        return true;
-      } else {
-        return false;
-      }
-    });
+  [selectNotes, (_, day) => day],
+  (notes, day) => {
+    return getNotesForSpecificDay(notes, day);
   }
 );
 
@@ -117,7 +123,13 @@ export const selectFilteredNotes = createSelector(
   }
 );
 
-export const { addNote, deleteNote, toggleCompleted, editNote } =
-  notesSlice.actions;
+export const {
+  addNote,
+  deleteNote,
+  toggleCompleted,
+  editNote,
+  markAllCompleted,
+  clearCompleted,
+} = notesSlice.actions;
 
 export default notesSlice.reducer;

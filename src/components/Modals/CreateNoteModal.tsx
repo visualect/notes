@@ -30,7 +30,7 @@ export default function CreateNoteModal({
   };
 
   const prioritiesStyle =
-    "p-2 cursor-pointer font-bold font-jetbrains hover:-translate-y-1 transition duration-300 ease-out hover:text-[#0090FF]";
+    "p-2 cursor-pointer font-bold font-jetbrains hover:-translate-y-1 transition duration-300 ease-out hover:text-emerald-500";
 
   const body = (
     <div className="w-full flex flex-col gap-8">
