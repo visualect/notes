@@ -34,8 +34,18 @@ export default function Modal({
         <h2 className="text-2xl font-medium">{title}</h2>
         <div className="w-full">{body}</div>
         <div className="flex flex-row gap-4 w-full">
-          <Button secondary label={secondaryActionLabel} action={onClose} />
-          <Button secondary={false} label={actionLabel} action={onSubmit} />
+          <Button
+            secondary
+            label={secondaryActionLabel}
+            action={onClose}
+            small={false}
+          />
+          <Button
+            secondary={false}
+            label={actionLabel}
+            action={onSubmit}
+            small={false}
+          />
         </div>
       </motion.div>
     </div>
