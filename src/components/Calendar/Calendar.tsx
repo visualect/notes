@@ -113,13 +113,13 @@ function Calendar() {
         <div className="flex flex-row gap-8">
           <div
             onClick={onChangeMonthBack}
-            className="hover:text-emerald-500 cursor-pointer"
+            className="hover:text-blue-500 cursor-pointer"
           >
             <MdArrowBackIos size={20} />
           </div>
           <div
             onClick={onChangeMonthForward}
-            className="hover:text-emerald-500 cursor-pointer"
+            className="hover:text-blue-500 cursor-pointer"
           >
             <MdArrowForwardIos size={20} />
           </div>
@@ -129,13 +129,13 @@ function Calendar() {
         initial="hidden"
         animate="show"
         variants={container}
-        className="flex flex-col justify-between gap-8 w-full h-full"
+        className="flex flex-col justify-between gap-2 sm:gap-4 md:gap-8 w-full h-full aspect-square"
       >
         <div className="grid grid-cols-7">
           {daysOfWeek.map((item) => (
             <div
               key={item}
-              className="flex justify-center font-normal text-2xl "
+              className="flex justify-center font-normal text-xl sm:text-2xl "
             >
               {item}
             </div>

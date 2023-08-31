@@ -3,6 +3,7 @@ import Input from "../Inputs/Input";
 import Modal from "./Modal";
 import { useState } from "react";
 import { addNote } from "@/redux/notesSlice";
+import PriorityItem from "./PriorityItem";
 
 interface ICreateNoteModalProps {
   isOpen: boolean;
@@ -29,45 +30,34 @@ export default function CreateNoteModal({
     setPriority(null);
   };
 
-  const prioritiesStyle =
-    "p-2 cursor-pointer font-bold font-jetbrains hover:-translate-y-1 transition duration-300 ease-out hover:text-emerald-500";
-
   const body = (
     <div className="w-full flex flex-col gap-8">
       <Input value={bodyValue} onChange={setBodyValue} placeholder="Note" />
-      <ul className="flex flex-row justify-between">
-        <li
-          className={`${prioritiesStyle} ${
-            priority === "low" && "text-[#0090FF]"
-          }`}
-          onClick={() => setPriority("low")}
-        >
-          Low
-        </li>
-        <li
-          className={`${prioritiesStyle} ${
-            priority === "neutral" && "text-[#0090FF]"
-          }`}
-          onClick={() => setPriority("neutral")}
-        >
-          Neutral
-        </li>
-        <li
-          className={`${prioritiesStyle} ${
-            priority === "high" && "text-[#0090FF]"
-          }`}
-          onClick={() => setPriority("high")}
-        >
-          High
-        </li>
-        <li
-          className={`${prioritiesStyle} ${
-            priority === "critical" && "text-[#0090FF]"
-          }`}
-          onClick={() => setPriority("critical")}
-        >
-          Critical
-        </li>
+      <ul className="flex flex-row justify-between text-sm sm:text-base gap-2">
+        <PriorityItem
+          priority="low"
+          label="Low"
+          onSelect={setPriority}
+          selected={priority === "low"}
+        />
+        <PriorityItem
+          priority="neutral"
+          label="Neutral"
+          onSelect={setPriority}
+          selected={priority === "neutral"}
+        />
+        <PriorityItem
+          priority="high"
+          label="High"
+          onSelect={setPriority}
+          selected={priority === "high"}
+        />
+        <PriorityItem
+          priority="critical"
+          label="Critical"
+          onSelect={setPriority}
+          selected={priority === "critical"}
+        />
       </ul>
     </div>
   );

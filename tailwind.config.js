@@ -16,6 +16,9 @@ module.exports = {
       },
     },
     extend: {
+      screens: {
+        'sm': '425px',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -53,24 +56,24 @@ module.exports = {
       },
       dropShadow: {
         glow: [
-          "0 0px 5px rgba(255,255, 255)",
-          "0 0px 10px rgba(255, 255,255, .1)"
+          "0 0px 3px rgba(255,255, 255)",
+          "0 0px 0px rgba(255, 255,255, .1)"
         ],
         glowIndigo: [
-          "0 0px 5px rgba(99, 102, 241)",
-          "0 0px 10px rgba(99, 102,241, .1)"
+          "0 0px 3px rgba(99, 102, 241)",
+          "0 0px 6px rgba(99, 102,241, .1)"
         ],
         glowGray: [
-          "0 0px 5px rgba(107, 114, 128)",
-          "0 0px 10px rgba(107, 114, 128, .1)"
+          "0 0px 3px rgba(107, 114, 128)",
+          "0 0px 6px rgba(107, 114, 128, .1)"
         ],
         glowAmber: [
-          "0 0px 5px rgba(245, 158, 11)",
-          "0 0px 10px rgba(245, 158, 11, .1)"
+          "0 0px 3px rgba(245, 158, 11)",
+          "0 0px 6px rgba(245, 158, 11, .1)"
         ],
         glowRose: [
-          "0 0px 5px rgba(244, 63, 94)",
-          "0 0px 10px rgba(244, 63, 94, .1)"
+          "0 0px 3px rgba(244, 63, 94)",
+          "0 0px 6px rgba(244, 63, 94, .1)"
         ]
       },
       borderRadius: {

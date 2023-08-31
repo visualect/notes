@@ -1,4 +1,5 @@
 export const months = [
+  "December",
   "January",
   "February",
   "March",
@@ -10,7 +11,6 @@ export const months = [
   "September",
   "October",
   "November",
-  "December",
 ];
 
 export const daysOfWeek = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];

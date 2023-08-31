@@ -21,26 +21,28 @@ export default function Filters({ t }: IFilters) {
   const priorityOptions = ["all", "low", "neutral", "high", "critical"];
   const statusOptions = ["all", "active", "completed"];
   return (
-    <div className="flex flex-row justify-between min-h-[80px]">
-      <div className="flex flex-col gap-2">
-        <div className="text-xs">Filter by priority:</div>
-        <CustomSelect
-          options={priorityOptions}
-          placeholder="all"
-          value={filter}
-          onChange={(value) => dispatch(priorityChanged(value))}
-        />
+    <div className="flex flex-col sm:flex-row justify-between min-h-[80px] gap-4">
+      <div className="w-full flex flex-col sm:flex-row gap-4">
+        <div className="flex flex-row sm:flex-col items-center justify-between gap-2">
+          <div className="text-xs">Filter by priority:</div>
+          <CustomSelect
+            options={priorityOptions}
+            placeholder="all"
+            value={filter}
+            onChange={(value) => dispatch(priorityChanged(value))}
+          />
+        </div>
+        <div className="flex flex-row sm:flex-col items-center justify-between gap-2">
+          <div className="text-xs">Filter by status:</div>
+          <CustomSelect
+            options={statusOptions}
+            placeholder="all"
+            value={status}
+            onChange={(value) => dispatch(statusChanged(value))}
+          />
+        </div>
       </div>
-      <div className="flex flex-col gap-2">
-        <div className="text-xs">Filter by status:</div>
-        <CustomSelect
-          options={statusOptions}
-          placeholder="all"
-          value={status}
-          onChange={(value) => dispatch(statusChanged(value))}
-        />
-      </div>
-      <div className="flex flex-col gap-2 w-[200px]">
+      <div className="flex flex-row sm:flex-col w-full justify-between gap-2">
         <Button
           label="Mark all completed"
           secondary={false}

@@ -3,6 +3,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 import getNotesForSpecificDay from "@/lib/getNotesForSpecificDay";
 import areDatesEqual from "@/lib/areDatesEqual";
+import { defaultNotes } from "@/lib/defaultNotes";
 
 export interface NotesState {
   notes: Note[];
@@ -19,7 +20,7 @@ export interface Note {
 }
 
 const initialState: NotesState = {
-  notes: storage ?? [],
+  notes: storage ?? defaultNotes,
 };
 
 export const notesSlice = createSlice({
@@ -56,10 +57,13 @@ export const notesSlice = createSlice({
         return item;
       });
     },
-    editNote(state, action: PayloadAction<Note>) {
-      state.notes.map((note) => {
+    editNote(state, action: PayloadAction<{ id: string; body: string }>) {
+      state.notes = state.notes.map((note) => {
         if (note.id === action.payload.id) {
-          return action.payload;
+          return {
+            ...note,
+            body: action.payload.body,
+          };
         }
         return note;
       });
@@ -83,6 +87,19 @@ export const notesSlice = createSlice({
           return false;
         }
         return true;
+      });
+    },
+    deleteOld(state) {
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear();
+      const currentMonth = currentDate.getMonth();
+
+      const firstDayOfCurrentMonth = new Date(currentYear, currentMonth, 1);
+
+      state.notes = state.notes.filter((note) => {
+        const createdAtDate = new Date(note.createdAt);
+
+        return createdAtDate >= firstDayOfCurrentMonth;
       });
     },
   },
@@ -130,6 +147,7 @@ export const {
   editNote,
   markAllCompleted,
   clearCompleted,
+  deleteOld,
 } = notesSlice.actions;
 
 export default notesSlice.reducer;
