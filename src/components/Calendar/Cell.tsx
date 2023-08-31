@@ -34,7 +34,7 @@ export default function Cell({ day, year, month }: ICellProps) {
 
   return (
     <Link
-      to={`${new Date(year, month - 1, day).getTime()}`}
+      to={`/day/${new Date(year, month - 1, day).getTime()}`}
       className="relative max-w-[50px]"
     >
       <motion.div

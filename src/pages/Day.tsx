@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { Variants, motion } from "framer-motion";
 import { format } from "date-fns";
 import Button from "@/components/Buttons/Button";
@@ -17,8 +17,9 @@ import { priorityChanged, statusChanged } from "@/redux/filtersSlice";
 export default function Day() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useAppDispatch();
-  const location = useLocation();
-  const timestamp = +location.pathname.slice(1);
+  const params = useParams();
+
+  const timestamp = +params.id!;
 
   const notes = useAppSelector((state) =>
     selectFilteredNotes(state, timestamp)
