@@ -1,7 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Variants, motion } from "framer-motion";
 import { format } from "date-fns";
-import getDateOfDay from "@/actions/getDateOfDay";
 import Button from "@/components/Buttons/Button";
 import { useState, useEffect } from "react";
 import CreateNoteModal from "@/components/Modals/CreateNoteModal";
@@ -19,7 +18,8 @@ export default function Day() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useAppDispatch();
   const location = useLocation();
-  const timestamp = getDateOfDay(location.search);
+  const timestamp = +location.pathname.slice(1);
+
   const notes = useAppSelector((state) =>
     selectFilteredNotes(state, timestamp)
   );

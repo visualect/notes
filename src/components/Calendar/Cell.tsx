@@ -21,7 +21,7 @@ const item: Variants = {
   },
 };
 
-export default function Cell({ day, year, month, blocked }: ICellProps) {
+export default function Cell({ day, year, month }: ICellProps) {
   const currentDate = new Date();
   const isToday =
     currentDate.getDate() === day &&
@@ -34,7 +34,7 @@ export default function Cell({ day, year, month, blocked }: ICellProps) {
 
   return (
     <Link
-      to={!blocked ? `/day?y=${year}&m=${month}&d=${day}` : ""}
+      to={`${new Date(year, month - 1, day).getTime()}`}
       className="relative max-w-[50px]"
     >
       <motion.div
