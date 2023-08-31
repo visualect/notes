@@ -1,4 +1,4 @@
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Variants, motion } from "framer-motion";
 import { format } from "date-fns";
 import Button from "@/components/Buttons/Button";
