@@ -1,27 +1,35 @@
-# React + TypeScript + Vite
+# Notes
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a pet project that I've developed to showcase my front-end development skills. The Notes app is designed to help users manage their daily tasks and priorities. It offers a minimalist and beautiful design, ensuring a seamless experience for users on both desktop and mobile devices.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Create and Organize Notes:** Easily create and manage notes for each day of the month. Set priorities and track completion status.
 
-## Expanding the ESLint configuration
+- **Month Navigation:** Seamlessly switch between months to plan and manage your tasks effectively.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Edit and Delete Notes:** Modify or remove notes as needed.
 
-- Configure the top-level `parserOptions` property like this:
+- **Filter notes:** Filter notes by priority, status, or both.
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+- **Bulk Actions:** Perform bulk actions like marking all notes as completed or deleting completed notes.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- **Automatic Deletion:** Automatically remove old notes to keep your list up-to-date.
+
+- **Responsive Design:** The app is fully responsive, ensuring a great experience on both desktop and mobile devices.
+
+- **Data Storage:** Notes are stored in localStorage for data persistence.
+
+## Technologies Used
+
+- Vite
+- TypeScript
+- React
+- Redux
+- Tailwind CSS
+- Framer Motion
+- Radix UI
+
+## Contact
+
+If you have any questions, suggestions, or just want to connect, you can reach me at discord ```visualect```.
